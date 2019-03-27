@@ -1,6 +1,8 @@
+import axios from 'axios';
+
 /* initial state */
 const initialState = {
-  people: null
+  people: []
 };
 
 /* action constants */
@@ -13,8 +15,9 @@ export const uploadedPeople = (people) => ({
 });
 
 /* thunk creators */
-export const uploadPeople = (people) => dispatch => {
+export const uploadPeople = () => async dispatch => {
   try {
+    const people = await axios.get(`api/people`);
     return dispatch(uploadedPeople(people));
   } catch (err) {
     console.log(err);
